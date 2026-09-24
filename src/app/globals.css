@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-head: var(--font-space-grotesk);
+  
+  --color-neon-blue: #00b4ff;
+  --color-neon-cyan: #00fff5;
+  --color-neon-purple: #a855f7;
+  --color-neon-pink: #ec4899;
+}
+
+:root {
+  --bg: #050816;
+  --bg-secondary: #0a0f2c;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-glow: rgba(0, 180, 255, 0.12);
+  --glow-color: rgba(0, 180, 255, 0.3);
+  --nav-bg: rgba(5, 8, 22, 0.75);
+}
+
+:root.light {
+  --bg: #f4f6fa;
+  --bg-secondary: #ffffff;
+  --text: #1e293b;
+  --text-dim: #64748b;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 180, 255, 0.12);
+  --glass-glow: rgba(0, 180, 255, 0.06);
+  --glow-color: rgba(0, 180, 255, 0.25);
+  --nav-bg: rgba(244, 246, 250, 0.85);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+/* Hide standard cursor if on desktop (CustomCursor handles rendering) */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a, button, input, textarea, select, [role="button"] {
+    cursor: none;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-neon-blue), var(--color-neon-purple));
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--color-neon-cyan), var(--color-neon-pink));
+}
+
+/* Glassmorphism Card Utility */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+              box-shadow 0.4s ease, 
+              border-color 0.4s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px var(--glass-glow), 0 0 1px 1px var(--glow-color);
+  border-color: rgba(0, 180, 255, 0.35);
+}
+
+/* Aurora Background Blobs */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.14;
+  animation: blobFloat 12s ease-in-out infinite;
+}
+
+:root.light .blob {
+  opacity: 0.09;
+}
+
+@keyframes blobFloat {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(40px, -40px) scale(1.08);
+  }
+  66% {
+    transform: translate(-30px, 30px) scale(0.92);
+  }
+}
+
+/* Scroll indicator dot animation */
+@keyframes scrollDot {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scaleY(0.5) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.2) translateY(4px);
+  }
+}
+
+.scroll-dot-anim {
+  animation: scrollDot 1.8s ease-in-out infinite;
+}
